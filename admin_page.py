@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import *
 from tkinter import messagebox, simpledialog
-import pandas as pd
+#import pandas as pd
 from datetime import date
 from csv import *
 bg_clr="#f2ea09"
@@ -38,9 +38,29 @@ def make_announcements_screen():
                         announcement_screen.quit()))
         h1.pack()
         ancmt_btn.pack(side="bottom")
-        announcement.pack()
+        announcement.pack() 
 
-ancmt_screen_btn=Button(admin_window, text="Make Announcements", bg="white", command=lambda:make_announcements_screen(), pady=10)
-ancmt_screen_btn.pack()
+
+
+ancmt_screen_btn=Button(admin_window, text="Make Announcements", bg="white", command=lambda:make_announcements_screen())
+ancmt_screen_btn.pack(pady=20)
+
+timetable_btn=Button(admin_window, text="Timetable", bg="white")
+timetable_btn.pack(pady=20)
+
+teacher_entry_btn = tk.Button(admin_window, text="Add Teachers",
+                 bg="white")
+#teacher_entry_btn.place(relx=0.5, rely=0.4, anchor=tk.CENTER)
+teacher_entry_btn.pack(pady=20)
+
+student_entry_btn = tk.Button(admin_window, text="Add Students",
+                     bg="white")
+#student_entry_btn.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
+student_entry_btn.pack(pady=20)
+
+profile_btn = tk.Button(admin_window, text="Profile", bg="white")
+profile_btn.place(relx=0.9, rely=0.05, anchor="ne")
+profile_btn.pack(pady=20)
+
 
 admin_window.mainloop()
