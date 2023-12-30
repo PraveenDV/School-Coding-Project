@@ -7,12 +7,14 @@ import csv
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+import customtkinter as ctk
+import subprocess
 
 # Create the main window
-window = tk.Tk()
+window = ctk.CTk()
 window.title("Teacher Dashboard")
-window.geometry("200x450")
-window.configure(bg="skyblue1")
+window.geometry("600x600")
+#window.configure(bg_color="skyblue1")
 
 # Initialize user role
 user_role = None  # Keeps track of the current user's role (teacher or student)
@@ -71,32 +73,39 @@ def show_teacher_options():
     button_height = 3
 
     # Create buttons for various options
-    announcements_button = tk.Button(window, text="Announcements", command=on_announcements,
-                                     bg="firebrick1", fg="white", font=("Arial", 16), width=button_width, height=button_height)
-    announcements_button.grid(row=1, column=1)
+    announcements_button = ctk.CTkButton(window, text="Announcements", command=on_announcements,
+                                    fg_color="black", font=("Arial", 16))
+    #announcements_button.grid(row=1, column=1)
+    announcements_button.pack(pady=10)
 
-    my_timetable_button = tk.Button(window, text="My Timetable", command=on_my_timetable,
-                                   bg="cyan3", fg="white", font=("Arial", 16), width=button_width, height=button_height)
-    my_timetable_button.grid(row=4, column=1)
+    my_timetable_button = ctk.CTkButton(window, text="My Timetable", command=on_my_timetable,
+                                   fg_color="black", font=("Arial", 16))
+    #my_timetable_button.grid(row=4, column=1)
+    my_timetable_button.pack(pady=10)
 
-    create_test_button = tk.Button(window, text="Create Test", command=on_create_test,
-                                   bg="tomato", fg="white", font=("Arial", 16), width=button_width, height=button_height)
-    create_test_button.grid(row=7, column=1)
+    create_test_button = ctk.CTkButton(window, text="Create Test", command=on_create_test,
+                                   fg_color="black", font=("Arial", 16))
+    #create_test_button.grid(row=7, column=1)
+    create_test_button.pack(pady=10)
 
-    check_grade_button = tk.Button(window, text='''Check
+    check_grade_button = ctk.CTkButton(window, text='''Check
 Student
-Grade''', command=on_check_grade,
-                                   bg="red4", fg="white", font=("Arial", 16), width=button_width, height=button_height)
-    check_grade_button.grid(row=11, column=1)
+Grade''', command=on_check_grade, fg_color="black",
+                                    font=("Arial", 16))
+    #check_grade_button.grid(row=11, column=1)
+    check_grade_button.pack(pady=10)
 
-    assignments_button = tk.Button(window, text="Assignments", command=upload_assignment,
-                                   bg="lawn green", fg="white", font=("Arial", 16), width=button_width, height=button_height)
-    assignments_button.grid(row=14, column=1)
+    assignments_button = ctk.CTkButton(window, text="Assignments", command=upload_assignment,
+                                   fg_color="black", font=("Arial", 16))
+    #assignments_button.grid(row=14, column=1)
+    assignments_button.pack(pady=10)
 
     # Add an option for adding global announcements
-    add_announcement_button = tk.Button(window, text="Add_Global Announcement", command=lambda: open_announcement_editor(True),
-                                  bg="dodger blue", fg="white", font=("Arial", 16), width=button_width, height=button_height)
-    add_announcement_button.grid(row=17, column=1)
+    '''add_announcement_button = ctk.CTkButton(window, text="Add_Global Announcement", command=lambda: open_announcement_editor(True),
+                                  fg_color="black", font=("Arial", 16))
+    #add_announcement_button.grid(row=17, column=1)
+    add_announcement_button.pack(pady=10)'''
+
 # Show teacher options without the need for a button
 show_teacher_options()
 
@@ -107,12 +116,12 @@ def create_test():
 # Function for Teacher's Assignments Page
 def teacher_assignments_page():
     # Create the teacher's assignments page window
-    assignments_window = tk.Toplevel(master=window)
+    assignments_window = ctk.CTkToplevel(master=window)
     assignments_window.title("Teacher's Assignments")
     assignments_window.geometry("800x600")
-    assignments_window.configure(bg="light green")
+    assignments_window.configure(bg_color="light green")
     assignments_window.grab_set()
-    tk.Label(assignments_window, text="Teacher's Assignments", font=("Arial", 18), bg="light green").pack(pady=10)
+    ctk.Label(assignments_window, text="Teacher's Assignments", font=("Arial", 18), bg_color="light green").pack(pady=10)
 
 # Function to check student grade
 def check_grade():
@@ -120,14 +129,14 @@ def check_grade():
 
 # Function for My Timetable Page
 def my_timetable_page():
-    messagebox.showinfo("Work in Progress", "Feature coming soon.")
+    subprocess.run(['python','timetable.py'], check=True)
 
 # Function to open the announcements page
 def open_announcements_page():
-    announcements_window = tk.Toplevel(master=window)
+    announcements_window = ctk.CTkToplevel(master=window)
     announcements_window.title("Announcements Page")
     announcements_window.geometry("600x400")
-    announcements_window.configure(bg="skyblue1")
+    announcements_window.configure(bg_color="skyblue1")
 
     def view_global_announcements():
         global global_announcements
@@ -149,15 +158,15 @@ def open_announcements_page():
         else:
             messagebox.showinfo("Admin Announcements", "No admin announcements available.")
 
-    view_global_button = tk.Button(announcements_window, text='''View Global
+    view_global_button = ctk.CTkButton(announcements_window, text='''View Global
 Announcements''', command=view_global_announcements,
-                                   bg="dark turquoise", fg="white", width=20, height=2)
-    add_global_button = tk.Button(announcements_window, text='''Add Global
+                                  fg_color="black")
+    add_global_button = ctk.CTkButton(announcements_window, text='''Add Global
  Announcement''', command=add_global_announcement,
-                                  bg="turquoise", fg="white", width=20, height=2)
-    view_admin_button = tk.Button(announcements_window, text='''View Admin
+                                  fg_color="black")
+    view_admin_button = ctk.CTkButton(announcements_window, text='''View Admin
 Announcements''', command=view_admin_announcements,
-                                  bg="blue", fg="white", width=20, height=2)
+                                 fg_color="black")
 
     view_global_button.pack(pady=10)
     add_global_button.pack(pady=10)
@@ -186,18 +195,18 @@ def open_announcement_editor(is_global):
             writer = csv.writer(file)
             writer.writerows([[announcement] for announcement in announcements])
 
-    announcement_editor = tk.Toplevel(master=window)
+    announcement_editor = ctk.CTkToplevel(master=window)
     announcement_editor.title("Announcement Editor")
     announcement_editor.geometry("400x400")
 
-    announcement_text = tk.Text(announcement_editor, wrap=tk.WORD)
+    announcement_text = ctk.CTkTextbox(announcement_editor, wrap=ctk.WORD)
     announcement_text.pack(pady=10)
 
-    send_button = tk.Button(announcement_editor, text="Send Announcement", command=lambda: send_announcement_email(announcement_text.get("1.0", "end-1c")))
+    send_button = ctk.CTkButton(announcement_editor, text="Send Announcement", command=lambda: send_announcement_email(announcement_text.get("1.0", "end-1c")))
     send_button.pack()
 
     if is_global:
-        save_button = tk.Button(announcement_editor, text="Save Announcement", command=lambda: save_announcement(announcement_text.get("1.0", "end-1c"), "global_announcements.csv"))
+        save_button = ctk.CTkButton(announcement_editor, text="Save Announcement", command=lambda: save_announcement(announcement_text.get("1.0", "end-1c"), "global_announcements.csv"))
         save_button.pack()
 
 # Load global announcements from CSV file

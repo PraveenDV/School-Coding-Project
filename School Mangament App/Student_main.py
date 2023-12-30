@@ -4,8 +4,17 @@ from tkinter import messagebox, filedialog
 import os
 import shutil
 import csv
+import customtkinter as ctk
 
+'''bg_color="azure"
+text_color="black"
+button_color="cornflower blue"'''
+font="Arial"
 
+student_window = ctk.CTk()
+student_window.title("Student Main Page")
+student_window.geometry("800x600")
+student_window.grab_set()
 
 # Sample assignment data    
 assignments = [
@@ -50,37 +59,35 @@ def view_assignments():
 
     if assignments:
         # Create a new window for assignments
-        assignments_window = tk.Toplevel(student_window)
+        assignments_window = ctk.CTkToplevel(student_window)
         assignments_window.title("Assignments")
         assignments_window.geometry("800x600")
-        assignments_window.configure(bg="light blue")
+       
 
         # Create labels and download buttons for each assignment
         for i, assignment in enumerate(assignments):
-            assignment_label = tk.Label(assignments_window, text=f"{i + 1}. {assignment['name']}", font=(font1, 16))
+            assignment_label = ctk.CTkLabel(assignments_window, text=f"{i + 1}. {assignment['name']}", font=(font, 16))
             assignment_label.pack(pady=10)
-            download_button = tk.Button(assignments_window, text="Download",
+            download_button = ctk.CTkButton(assignments_window, text="Download",
                                         command=lambda path=assignment['file_path']: download_assignment(path))
             download_button.pack()
     else:
         messagebox.showinfo("No Assignments", "There are no assignments available.")
 
 # Create buttons for the student profile
-announcements_button = tk.Button(student_window, text="Announcements", command=feature_coming_soon,
-                                bg="red2", fg="white", font=(font, 16))
+announcements_button = ctk.CTkButton(student_window, text="Announcements", command=feature_coming_soon,
+                                 fg_color="black", font=(font, 16))
 
 # Create a new button for Assignments
-assignments_button = tk.Button(student_window, tex bit (AMD64)] on win32
-Type "help", "copyright", "credits" or "license()" for more information.
+assignments_button = ctk.CTkButton(student_window,
+text="Assignments", command=view_assignments,
+                                fg_color="black", font=(font, 16))
 
-=============== RESTART: D:\School Mangament App\Student_main.py ==============t="Assignments", command=view_assignments,
-                               bg="dodger blue", fg="white", font=(font, 16))
+timetable_button = ctk.CTkButton(student_window, text="My Class Timetable", command=feature_coming_soon,
+                              fg_color="black", font=(font, 16))
 
-timetable_button = tk.Button(student_window, text="My Class Timetable", command=feature_coming_soon,
-                             bg="green4", fg="white", font=(font1, 16))
-
-grade_button = tk.Button(student_window, text="Check My Grade", command=feature_coming_soon,
-                         bg="dark orchid", fg="white", font=(font1, 16))
+grade_button = ctk.CTkButton(student_window, text="Check My Grade", command=feature_coming_soon,
+                          fg_color="black", font=(font, 16))
 
 # Place the buttons in the window
 announcements_button.pack(pady=20)
@@ -89,8 +96,8 @@ timetable_button.pack(pady=20)
 grade_button.pack(pady=20)
 
 # Create a profile button in the top right corner
-profile_button = tk.Button(student_window, text="Profile", command=feature_coming_soon,
-                           bg="hot pink", fg="white", font=(font1, 12))
+profile_button = ctk.CTkButton(student_window, text="Profile", command=feature_coming_soon,
+                           fg_color="black", font=(font, 16))
 profile_button.place(relx=0.9, rely=0.05, anchor="ne")
 
 # Start the student profile main event loop
