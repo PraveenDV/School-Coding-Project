@@ -5,26 +5,32 @@ import os
 import shutil
 import csv
 import customtkinter as ctk
+import subprocess
 
-'''bg_color="azure"
-text_color="black"
-button_color="cornflower blue"'''
 font="Arial"
+
+ctk.set_appearance_mode('System')
 
 student_window = ctk.CTk()
 student_window.title("Student Main Page")
-student_window.geometry("800x600")
+student_window.geometry("600x600")
 student_window.grab_set()
+student_window.configure(bg="light blue")
 
-# Sample assignment data    
-assignments = [
-    {"name": "Assignment 1", "file_path": "assignment1.pdf"},
-    {"name": "Assignment 2", "file_path": "assignment2.png"},
-]
+# Function for Student's Announcement Page
+def student_announcement_page():
+    announcement_window = ctk.CTkToplevel(student_window)
+    announcement_window.title("Student's Announcements")
+    announcement_window.geometry("800x600")
+    announcement_window.configure(bg="light blue")
+    announcement_window.grab_set()
 
-# Function to show a "Feature coming soon" message
-def feature_coming_soon():
-    messagebox.showinfo("Feature Coming Soon", "This feature is coming soon.")
+    ctk.CTkLabel(announcement_window, text="Announcements", font=("Arial", 18)).pack(pady=10)
+
+    global_announcements_button = ctk.CTkButton(announcement_window, text="Global Announcements",
+                                        command=lambda:subprocess.run(['python', 'View Global Announcement.py']),
+                                          font=("Arial", 16))
+    global_announcements_button.pack(pady=20)
 
 # Function to open a file dialog for downloading an assignment
 def download_assignment(file_path):
@@ -75,30 +81,21 @@ def view_assignments():
         messagebox.showinfo("No Assignments", "There are no assignments available.")
 
 # Create buttons for the student profile
-announcements_button = ctk.CTkButton(student_window, text="Announcements", command=feature_coming_soon,
-                                 fg_color="black", font=(font, 16))
+announcements_button = ctk.CTkButton(student_window, text="Announcements", command=student_announcement_page,
+                                  font=(font, 16))
 
 # Create a new button for Assignments
 assignments_button = ctk.CTkButton(student_window,
 text="Assignments", command=view_assignments,
-                                fg_color="black", font=(font, 16))
+                                 font=(font, 16))
 
-timetable_button = ctk.CTkButton(student_window, text="My Class Timetable", command=feature_coming_soon,
-                              fg_color="black", font=(font, 16))
-
-grade_button = ctk.CTkButton(student_window, text="Check My Grade", command=feature_coming_soon,
-                          fg_color="black", font=(font, 16))
+timetable_button = ctk.CTkButton(student_window, text="My Class Timetable", command=lambda:subprocess.run(['python', 'timetable.py'], check=True),
+                               font=(font, 16))
 
 # Place the buttons in the window
 announcements_button.pack(pady=20)
 assignments_button.pack(pady=20)
 timetable_button.pack(pady=20)
-grade_button.pack(pady=20)
-
-# Create a profile button in the top right corner
-profile_button = ctk.CTkButton(student_window, text="Profile", command=feature_coming_soon,
-                           fg_color="black", font=(font, 16))
-profile_button.place(relx=0.9, rely=0.05, anchor="ne")
 
 # Start the student profile main event loop
 student_window.mainloop()

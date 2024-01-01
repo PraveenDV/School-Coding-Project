@@ -1,17 +1,16 @@
 import tkinter as tk
 from tkinter import *
 from tkinter import messagebox
-import webbrowser
 import subprocess
 from PIL import ImageTk, Image
 import ast
+import customtkinter as ctk
 
-
-sign_up_window = tk.Tk()
+sign_up_window = ctk.CTk()
 sign_up_window.title("Sign Up")
 sign_up_window.geometry("800x800")
 sign_up_window.grab_set()
-
+sign_up_window.configure(bg="light blue")
 
 def open_login_page():
     subprocess.run(['python', 'login_page.py'],check=True)
@@ -42,7 +41,7 @@ def sign_up():
 
             messagebox.showinfo('Signup', "Succesfully signed up!")
             subprocess.run(['python', 'Admin.py'],check=True)
-            sign_up_window.destroy()
+            #sign_up_window.destroy()
          except:
             file=open('admin_db.txt', 'w')
             data=str({'Username':'password'})
@@ -64,7 +63,7 @@ def sign_up():
 
             messagebox.showinfo('Signup', "Succesfully signed up!")
             subprocess.run(['python', 'Teacher_main.py'],check=True)
-            sign_up_window.destroy()
+
          except:
             file=open('teacher_db.txt', 'w')
             data=str({'Username':'password'})
@@ -86,7 +85,7 @@ def sign_up():
 
             messagebox.showinfo('Signup', "Succesfully signed up!")
             subprocess.run(['python', 'Student_main.py'],check=True)
-            sign_up_window.destroy()
+            
          except:
             file=open('student_db.txt', 'w')
             data=str({'Username':'password'})
@@ -99,36 +98,36 @@ def sign_up():
 
 
 image=ImageTk.PhotoImage(Image.open('assets\schoolLogo.png'))
-Label(sign_up_window, image=image, bg="white").place(x=50, y=50)
+ctk.CTkLabel(sign_up_window, image=image, bg_color="white").place(x=50, y=50)
 
-frame=Frame(sign_up_window, width=150, height=150).place(x=450, y=50)
-heading=Label(frame, width=25, text="Sign Up", fg='teal', font=('Arial', 25, 'bold'))
-heading.place(x=350, y=50)
+frame=ctk.CTkFrame(sign_up_window, width=250, height=230).place(x=440, y=120)
+heading=ctk.CTkLabel(frame, width=25, text="Sign Up", font=('Century Gothic', 25, 'bold'))
+heading.place(x=500, y=50)
 
-Label(frame, text='Username:', font=('Arial', 11)).place(x=500, y=150)
-username=Entry(frame, fg='black', border=2, font=("Arial", 11))
-username.place(x=500, y=180)
+#Label(frame, text='Username:', font=('Arial', 11)).place(x=500, y=150)
+username=ctk.CTkEntry(frame, font=("Arial", 11), placeholder_text='Username')
+username.place(x=500, y=150)
 
-Label(frame, text='Password:', font=('Arial', 11)).place(x=500, y=220)
-password_entry=Entry(frame, fg='black', border=2, font=("Arial", 11),show='*')
-password_entry.place(x=500, y=250)
+#Label(frame, text='Password:', font=('Arial', 11)).place(x=500, y=220)
+password_entry=ctk.CTkEntry(frame, placeholder_text='Password', font=("Arial", 11),show='*')
+password_entry.place(x=500, y=220)
 
-Label(frame, text='Confirm password:', font=('Arial', 11)).place(x=500, y=320)
-cpassword_entry=Entry(frame, fg='black', border=2, font=("Arial", 11),show='*')
-cpassword_entry.place(x=500, y=350)
+#Label(frame, text='Confirm password:', font=('Arial', 11)).place(x=500, y=320)
+cpassword_entry=ctk.CTkEntry(frame, placeholder_text="Confirm password", font=("Arial", 11),show='*')
+cpassword_entry.place(x=500, y=300)
 
-Label(frame, text='Sign up as?', font=('Arial', 11)).place(x=500, y=420)
-role_var=tk.StringVar(sign_up_window)
+ctk.CTkLabel(frame, text='Sign up as?', font=('Arial', 11)).place(x=500, y=400)
+role_var=ctk.StringVar(sign_up_window)
 role_var.set(roles[0])
-dropdown=tk.OptionMenu(sign_up_window, role_var, *roles)
-dropdown.place(x=500, y=450)
+dropdown=ctk.CTkOptionMenu(sign_up_window, variable=role_var, values=roles, hover=True)
+dropdown.place(x=500, y=420)
 
-sign_up_button=Button(frame, pady=5, text="Sign Up", font=("Arial", 11, "bold"), width=20, command=sign_up)
-sign_up_button.place(x=500, y=500)
+sign_up_button=ctk.CTkButton(frame, text="Sign Up", font=("Arial", 11, "bold"), width=20, command=sign_up)
+sign_up_button.place(x=500, y=480)
 
-Label(frame, text="Already have an account?", fg="black", font=("Arial", 11)).place(x=500, y=600)
-signin=Button(frame, width=6, text='Sign in', cursor='hand2', fg='#57a1f8', border=0, command=open_login_page)
-signin.place(x=670, y=600)
+ctk.CTkLabel(frame, text="Already have an account?",  font=("Arial", 11)).place(x=500, y=580)
+signin=ctk.CTkButton(frame, width=6, text='Sign in', fg_color='#57a1f8', command=open_login_page)
+signin.place(x=670, y=580)
 
 if __name__=='__main__':
     sign_up_window.mainloop()
